@@ -47,9 +47,7 @@ public class UserService {
       throw new InvalidaCredentialsException("user.invalid.credentials");
     }
 
-    System.out.println("teste");
     String token = authUserAndGetToken(username, password, user.getRoles());
-    System.out.println("nossa");
 
     response.put("response", "Login worked");
     response.put("token", token);
@@ -60,6 +58,8 @@ public class UserService {
   public Map<String, String> signup(User user) {
     List<Role> roles = new ArrayList<Role>();
     roles.add(Role.ROLE_CLIENT);
+
+    user.setPassword(passwordEnconder.encode(user.getPassword()));
     user.setRoles(roles);
     userRepository.save(user);
     response.put("response", "Sign up worked");
@@ -70,10 +70,9 @@ public class UserService {
   private String authUserAndGetToken(String username, String password, List<Role> roles) {
     try{
       authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-      System.out.println("ddd");
       return jwtTokenProvider.createToken(username, roles);
     } catch (AuthenticationException e) {
-      throw new InvalidaCredentialsException(e.getMessage());
+      throw new InvalidaCredentialsException("user.invalid.credentials");
     }
   }
 
