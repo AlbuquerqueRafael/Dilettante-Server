@@ -2,7 +2,7 @@ package com.api.dl.user;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.api.dl.exceptions.InvalidCredentialsException;
+import com.api.dl.user.exceptions.InvalidCredentialsException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +15,13 @@ public class UserExceptionHandler {
 	private Map<String, Object> model = new HashMap<String, Object>();
 	
 	@ExceptionHandler(InvalidCredentialsException.class)
-	public ResponseEntity<Map<String, Object>> handleCustomException(InvalidCredentialsException e) {
+	public ResponseEntity<Map<String, Object>> handleCustomException (InvalidCredentialsException e) {
 		return mountBadRequestException(e.getMessage());
 	}
 	
-	private ResponseEntity<Map<String, Object>> mountBadRequestException(String errorMessage){
+	private ResponseEntity<Map<String, Object>> mountBadRequestException (String errorMessage){
 		model.put("error", errorMessage);
-		
+		System.out.println("here");
 		return new ResponseEntity<Map<String, Object>>(model, HttpStatus.BAD_REQUEST);
 	}
 	

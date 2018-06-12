@@ -56,7 +56,6 @@ public class JWTTokenProvider {
   }
 
   public String resolveToken(HttpServletRequest req) {
-    System.out.println(req.getHeader("Authorization"));
     String bearerToken = req.getHeader("Authorization");
 
     if (bearerToken != null && bearerToken.startsWith("Bearer ")) {

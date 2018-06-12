@@ -22,10 +22,10 @@ public class UserController {
   private UserService userService;
 
   @RequestMapping(value = "/login", method = RequestMethod.POST)
-  public Map<String, String> login (@RequestParam("username") String username, 
+  public Map<String, String> login (@RequestParam("username") String username,
                                     @RequestParam("password") String password) {
     
-	
+                                      
     Map<String, String> response = userService.login(username, password);
 
 		return response;

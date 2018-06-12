@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import com.api.dl.security.JWTTokenProvider;
-import com.api.dl.user.exceptions.InvalidaCredentialsException;
+import com.api.dl.user.exceptions.InvalidCredentialsException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -38,13 +38,13 @@ public class UserService {
     Optional<User> optUser = userRepository.findByUsername(username);
 
     if (!optUser.isPresent()) {
-      throw new InvalidaCredentialsException("user.invalid.credentials");
+      throw new InvalidCredentialsException("user.invalid.credentials");
     }
 
     User user = optUser.get();
     
     if (!passwordEnconder.matches(password, user.getPassword())) {
-      throw new InvalidaCredentialsException("user.invalid.credentials");
+      throw new InvalidCredentialsException("user.invalid.credentials");
     }
 
     String token = authUserAndGetToken(username, password, user.getRoles());
@@ -55,7 +55,8 @@ public class UserService {
     return response;
   }
 
-  public Map<String, String> signup(User user) {
+  public Map<String, String> signup (User user) {
+    //Need to do validation
     List<Role> roles = new ArrayList<Role>();
     roles.add(Role.ROLE_CLIENT);
 
@@ -67,12 +68,12 @@ public class UserService {
     return response;
   }
 
-  private String authUserAndGetToken(String username, String password, List<Role> roles) {
+  private String authUserAndGetToken (String username, String password, List<Role> roles) {
     try{
       authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
       return jwtTokenProvider.createToken(username, roles);
     } catch (AuthenticationException e) {
-      throw new InvalidaCredentialsException("user.invalid.credentials");
+      throw new InvalidCredentialsException("user.invalid.credentials");
     }
   }
 

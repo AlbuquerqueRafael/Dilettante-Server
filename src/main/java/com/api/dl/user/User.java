@@ -84,19 +84,19 @@ public class User implements Serializable {
 	  return this.password;
   }
 
-  public List<Role> getRoles() {
+  public List<Role> getRoles () {
     return this.roles;
   }
 
-  public String getEmail() {
+  public String getEmail () {
     return this.email;
   }
 
-  public boolean isActive() {
+  public boolean isActive () {
     return this.active;
   }
 
-  public LocalDate getBirthDate() {
+  public LocalDate getBirthDate () {
     return this.birthDate;
   }
 
@@ -108,7 +108,7 @@ public class User implements Serializable {
     this.password = password;
   }
 
-  public void setRoles(List<Role> roles) {
+  public void setRoles (List<Role> roles) {
     this.roles = roles;
   }
 
@@ -116,11 +116,11 @@ public class User implements Serializable {
     this.email = email;
   }
 
-  public void setActive(boolean active) {
+  public void setActive (boolean active) {
     this.active = active;
   }
 
-  public void setBirthDate(LocalDate birthDate) {
+  public void setBirthDate (LocalDate birthDate) {
     this.birthDate = birthDate;
   }
 
