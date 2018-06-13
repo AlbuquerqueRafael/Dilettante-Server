@@ -21,7 +21,6 @@ public class UserExceptionHandler {
 	
 	private ResponseEntity<Map<String, Object>> mountBadRequestException (String errorMessage){
 		model.put("error", errorMessage);
-		System.out.println("here");
 		return new ResponseEntity<Map<String, Object>>(model, HttpStatus.BAD_REQUEST);
 	}
 	
