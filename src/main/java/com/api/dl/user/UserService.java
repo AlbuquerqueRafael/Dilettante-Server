@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -38,13 +39,13 @@ public class UserService {
     Optional<User> optUser = userRepository.findByUsername(username);
 
     if (!optUser.isPresent()) {
-      throw new InvalidCredentialsException("user.invalid.credentials");
+      throw new InvalidCredentialsException("Please, provide a valid username and password");
     }
 
     User user = optUser.get();
     
     if (!passwordEnconder.matches(password, user.getPassword())) {
-      throw new InvalidCredentialsException("user.invalid.credentials");
+      throw new InvalidCredentialsException("Please, provide a valid username and password");
     }
 
     String token = authUserAndGetToken(username, password, user.getRoles());
@@ -56,12 +57,12 @@ public class UserService {
   }
 
   public Map<String, String> signup (User user) {
-    //Need to do validation
     List<Role> roles = new ArrayList<Role>();
     roles.add(Role.ROLE_CLIENT);
 
     user.setPassword(passwordEnconder.encode(user.getPassword()));
     user.setRoles(roles);
+    user.setActive(true);
     userRepository.save(user);
     response.put("response", "Sign up worked");
 
@@ -73,8 +74,14 @@ public class UserService {
       authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
       return jwtTokenProvider.createToken(username, roles);
     } catch (AuthenticationException e) {
-      throw new InvalidCredentialsException("user.invalid.credentials");
+      throw new InvalidCredentialsException("Invalid token");
     }
+  }
+
+  public User getLoggedUser() {
+    String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+    return userRepository.findByUsername(username).get();
   }
 
   

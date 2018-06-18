@@ -2,7 +2,6 @@ package com.api.dl.user;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,12 +20,13 @@ public class UserController {
   @Autowired
   private UserService userService;
 
+  @Autowired 
+  private UserValidator userValidator;
+
   @RequestMapping(value = "/login", method = RequestMethod.POST)
-  public Map<String, String> login (@RequestParam("username") String username,
-                                    @RequestParam("password") String password) {
-    
-                                      
-    Map<String, String> response = userService.login(username, password);
+  public Map<String, String> login (@RequestBody User user) {
+    userValidator.validateLogin(user);                                  
+    Map<String, String> response = userService.login(user.getUsername(), user.getPassword());
 
 		return response;
   }
@@ -40,6 +40,7 @@ public class UserController {
 
   @RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public Map<String, String> signup (@RequestBody User user) {
+    userValidator.validateSignUp(user);
 		return userService.signup(user);
   }
   

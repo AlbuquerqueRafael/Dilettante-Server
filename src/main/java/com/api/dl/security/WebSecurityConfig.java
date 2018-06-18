@@ -3,6 +3,7 @@ package com.api.dl.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -30,7 +31,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests()
 				//Alowing some url's
 				.antMatchers("/api/login").permitAll()
-        .antMatchers("/api/signup").permitAll()
+				.antMatchers("/api/signup").permitAll()
+				.antMatchers(HttpMethod.GET, "/api/publication").permitAll()
 				// authenticate all remaining URLS
 				.anyRequest().fullyAuthenticated().and()
 				// adding JWT filter

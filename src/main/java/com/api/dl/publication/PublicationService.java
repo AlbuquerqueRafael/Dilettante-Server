@@ -1,11 +1,15 @@
 package com.api.dl.publication;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import com.api.dl.security.JWTTokenProvider;
+import com.api.dl.user.User;
+import com.api.dl.user.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 
@@ -16,12 +20,25 @@ public class PublicationService {
   private PublicationRepository publicationRepository;
 
   @Autowired
-  private JWTTokenProvider jwtTokenProvider;
+  private UserService userService;
 
   private Map<String, String> response = new HashMap<String, String>();
 
   public Map<String, String> create (Publication publication) {
+    User user = userService.getLoggedUser();
+    publication.setUser(user);
     publicationRepository.save(publication);
+    
+    return response;
+  }
+
+  public Map<String, List<Publication>> getPublications () {
+    PageRequest request = PageRequest.of(0, 12);
+    Page<Publication> page = publicationRepository.findAll(request);
+    
+
+    Map<String, List<Publication>> response = new HashMap<String, List<Publication>>();
+    response.put("data", page.getContent());
     
     return response;
   }

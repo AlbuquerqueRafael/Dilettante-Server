@@ -2,13 +2,21 @@ package com.api.dl.publication;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
+import com.api.dl.publication.Location;
 import com.api.dl.user.User;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
 import java.io.Serializable;
@@ -28,23 +36,28 @@ public class Publication implements Serializable {
   private Long id;
 
   @Column(nullable = false)
+  @NotBlank(message="Please, inform a valid name")
   private String name;
 
-  @Column(nullable = false)
-  private Type type;
+  @NotNull(message="Please, inform a valid content")
+  @OneToOne(cascade = CascadeType.ALL)
+  private Content content;
 
-  @Column(nullable = false)
+  @ManyToOne(cascade = CascadeType.ALL)
   private User user;
 
-  @Column(nullable = false)
+  @NotNull(message="Please, inform a valid location")
+  @ManyToOne(cascade = CascadeType.ALL)
   private Location location;
 
   @CreationTimestamp
   @Column(name = "created_at")
+  @JsonProperty(access = Access.WRITE_ONLY)
   public LocalDateTime createdAt;
 
   @UpdateTimestamp
   @Column(name = "updated_at")
+  @JsonProperty(access = Access.WRITE_ONLY)
   public LocalDateTime updatedAt;
 
   //Add content info
@@ -52,9 +65,9 @@ public class Publication implements Serializable {
   protected Publication () {
 	}
 
-	public Publication (String name, Type type, User user, Location location) {
+	public Publication (String name, Content content, User user, Location location) {
     this.name = name;
-    this.type = type;
+    this.content = content;
     this.user = user;
     this.location = location;
   }
@@ -67,18 +80,26 @@ public class Publication implements Serializable {
 	  return this.name;
   }
 
-  public Type getType() {
-    return this.type;
+  public Content getContent () {
+    return this.content;
   }
 
 	public User getUser () {
 	  return this.user;
   }
 
-  public Location location () {
+  public Location getLocation () {
     return this.location;
   }
 
+
+  public void setUser (User user) {
+    this.user = user;
+  }
+
+  public void setContent (Content content) {
+    this.content = content;
+  }
 
 
 

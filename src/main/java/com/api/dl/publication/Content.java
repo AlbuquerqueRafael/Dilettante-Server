@@ -3,7 +3,7 @@ package com.api.dl.publication;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -20,8 +20,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 @Entity
-@Table (name = "location")
-public class Location implements Serializable {
+@Table (name = "content")
+public class Content implements Serializable {
 
   private static final long serialVersionUID = -1513339037567362L;
 
@@ -29,21 +29,13 @@ public class Location implements Serializable {
   @GeneratedValue(strategy=GenerationType.AUTO)
   private Long id;
 
-  @Column()
-  private String additionalInfo;
-
-  //Maybe I will normalize in future
-  @Column(nullable = false)
-  @NotBlank(message="Please, inform a valid city")
-  private String city;
+  private String description;
 
   @Column(nullable = false)
-  @NotBlank(message="Please, inform a valid state")
-  private String state;
+  @NotNull(message="Please, inform a valid content type")
+  private Type type;
 
-  @Column(nullable = false)
-  @NotBlank(message="Please, inform a valid country")
-  private String country;
+  private String link;
 
   @CreationTimestamp
   @Column(name = "created_at")
@@ -55,30 +47,24 @@ public class Location implements Serializable {
   @JsonProperty(access = Access.WRITE_ONLY)
   public LocalDateTime updatedAt;
 
-  protected Location () {
+  protected Content () {
 	}
 
-	public Location (String additionalInfo, String country, String state, String city) {
-    this.additionalInfo = additionalInfo;
-    this.country = country;
-    this.state = state;
-    this.city = city;
+	public Content (Type type, String link, String description) {
+    this.type = type;
+    this.link = link;
+    this.description = description;
   }
 
-  public String getAdditionalInfo() {
-    return this.additionalInfo;
+  public Type getType() {
+    return this.type;
   }
 
-  public String getCountry() {
-    return this.country;
+  public String getLink() {
+    return this.link;
   }
 
-  public String getState() {
-    return this.state;
+  public String getDescription() {
+    return this.description;
   }
-
-  public String getCity() {
-    return this.city;
-  }
-
 }

@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -33,34 +35,47 @@ public class User implements Serializable {
   private Long id;
 
   @Column(nullable = false, unique=true)
+  @NotBlank(message="Please, inform a valid username")
   private String username;
 
   @Column(nullable = false)
   @JsonProperty(access = Access.WRITE_ONLY)
+  @NotBlank(message="Please, inform a valid password")
   private String password;
 
   @Column(nullable = false)
+  @NotBlank(message="Please, inform a valid email")
   private String email;
 
   @Column(nullable = false)
+  @JsonProperty(access = Access.WRITE_ONLY)
   private boolean active = false;
 
   @Column(nullable = false)
+  @NotNull(message="Please, inform a valid birth date")
   private LocalDate birthDate;
 
   @CreationTimestamp
   @Column(name = "created_at")
+  @JsonProperty(access = Access.WRITE_ONLY)
   public LocalDateTime createdAt;
 
   @UpdateTimestamp
   @Column(name = "updated_at")
+  @JsonProperty(access = Access.WRITE_ONLY)
   public LocalDateTime updatedAt;
 
   @ElementCollection(fetch = FetchType.EAGER)
+  @JsonProperty(access = Access.WRITE_ONLY)
   List<Role> roles;
 
   protected User () {
-	}
+  }
+  
+  public User (String username, String password) {
+    this.username = username;
+    this.password = password;
+  }
 
 	public User (String username, String password, List<Role> roles, String email, 
                boolean active, LocalDate birthDate) {
@@ -77,7 +92,7 @@ public class User implements Serializable {
   }
 
   public String getUsername () {
-	  return this.password;
+	  return this.username;
   }
 
 	public String getPassword () {
