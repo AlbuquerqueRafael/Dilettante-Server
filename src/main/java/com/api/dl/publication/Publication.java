@@ -92,6 +92,9 @@ public class Publication implements Serializable {
     return this.location;
   }
 
+  public void setId (Long id) {
+    this.id = id;
+  }
 
   public void setUser (User user) {
     this.user = user;
@@ -100,7 +103,5 @@ public class Publication implements Serializable {
   public void setContent (Content content) {
     this.content = content;
   }
-
-
 
 }

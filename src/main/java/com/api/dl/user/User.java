@@ -141,6 +141,13 @@ public class User implements Serializable {
 
   @Override
   public boolean equals (Object auxObj) {
-    return true;
+    if (!(auxObj instanceof User)) {
+      return false;
+    }
+
+    User auxUser = (User) auxObj;
+
+    return this.username.equals(auxUser.getUsername());
+
   }
 }

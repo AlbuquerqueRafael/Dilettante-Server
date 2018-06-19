@@ -17,7 +17,7 @@ public class UserExceptionHandler {
 	
 	@ExceptionHandler(InvalidCredentialsException.class)
 	public ResponseEntity<Map<String, Object>> handleCustomException (InvalidCredentialsException e) {
-		return mountBadRequestException(e.getMessage());
+		return mountNotAuthorizedRequestException(e.getMessage());
 	}
 
 		
@@ -30,5 +30,10 @@ public class UserExceptionHandler {
 		model.put("error", errorMessage);
 		return new ResponseEntity<Map<String, Object>>(model, HttpStatus.BAD_REQUEST);
 	}
+
+	private ResponseEntity<Map<String, Object>> mountNotAuthorizedRequestException (String errorMessage){
+		model.put("error", errorMessage);
+		return new ResponseEntity<Map<String, Object>>(model, HttpStatus.UNAUTHORIZED);
+	} 
 	
 }

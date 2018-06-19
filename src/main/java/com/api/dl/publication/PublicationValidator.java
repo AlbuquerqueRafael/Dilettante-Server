@@ -24,7 +24,7 @@ public class PublicationValidator {
     this.validator = factory.getValidator();
   }
   
-  public void validateCreate(Publication publication) {
+  public void validateCreateAndEdit(Publication publication) {
     Set<ConstraintViolation<Publication>> publicationViolations = validator.validate(publication);
     String errors = "";
 
