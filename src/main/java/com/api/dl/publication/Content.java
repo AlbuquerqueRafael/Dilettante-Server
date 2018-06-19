@@ -47,24 +47,32 @@ public class Content implements Serializable {
   @JsonProperty(access = Access.WRITE_ONLY)
   public LocalDateTime updatedAt;
 
+  @Column()
+  public String author;
+
   protected Content () {
 	}
 
-	public Content (Type type, String link, String description) {
+	public Content (Type type, String link, String description, String author) {
     this.type = type;
     this.link = link;
     this.description = description;
+    this.author = author;
   }
 
-  public Type getType() {
+  public Type getType () {
     return this.type;
   }
 
-  public String getLink() {
+  public String getLink () {
     return this.link;
   }
 
-  public String getDescription() {
+  public String getDescription () {
     return this.description;
+  }
+
+  public String getAuthor () {
+    return this.author;
   }
 }

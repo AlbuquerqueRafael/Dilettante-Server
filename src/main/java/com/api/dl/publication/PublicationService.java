@@ -3,7 +3,10 @@ package com.api.dl.publication;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
+import com.api.dl.publication.exceptions.PublicationNotFoundException;
+import com.api.dl.publication.exceptions.PublicationOwnerException;
 import com.api.dl.user.User;
 import com.api.dl.user.UserService;
 
@@ -42,6 +45,31 @@ public class PublicationService {
     
     return response;
   }
+
+  public Map<String, Publication> edit (Long id, Publication publication) {
+    Optional<Publication> optPublication = publicationRepository.findById(id);
+    Map<String, Publication> response = new HashMap<String, Publication>();
+
+    if (!optPublication.isPresent()) {
+      throw new PublicationNotFoundException("Publication not found;");
+    }
+
+    Publication auxPublication = optPublication.get();
+    User user = userService.getLoggedUser();
+
+    if (!auxPublication.getUser().equals(user)) {
+      throw new PublicationOwnerException("You are not the owner of this publication");
+    }
+
+    publication.setId(auxPublication.getId());
+    publication.setUser(user);
+    publicationRepository.save(publication);
+    
+    response.put("data", publication);
+
+    return response;
+  }
+
 
 
 
