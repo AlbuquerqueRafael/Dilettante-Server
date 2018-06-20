@@ -55,7 +55,7 @@ public class Location implements Serializable {
   @JsonProperty(access = Access.WRITE_ONLY)
   public LocalDateTime updatedAt;
 
-  protected Location () {
+  public Location () {
 	}
 
 	public Location (String additionalInfo, String country, String state, String city) {
@@ -79,6 +79,19 @@ public class Location implements Serializable {
 
   public String getCity() {
     return this.city;
+  }
+
+
+  public void setCountry(String country) {
+    this.country = country;
+  }
+
+  public void setState(String state) {
+    this.state = state;
+  }
+
+  public void setCity(String city) {
+    this.city = city;
   }
 
 }
