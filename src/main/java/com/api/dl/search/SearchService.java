@@ -1,19 +1,37 @@
 package com.api.dl.search;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.api.dl.publication.Location;
+import com.api.dl.publication.Publication;
+import com.api.dl.publication.PublicationRepository;
 import com.api.dl.publication.Type;
 import com.api.dl.search.dto.PublicationSearchDTO;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 
 @Service
 public class SearchService {
+  @Autowired
+  PublicationRepository publicationRepository;
 
-  public void search(Map<String, String[]> requestParameterMap) {
+  Map<String, List<Publication>> response = new HashMap<String, List<Publication>>();
+
+  public Map<String, List<Publication>> search(Map<String, String[]> requestParameterMap) {
     PublicationSearchDTO publicationSearchDTO = mapToDTO(requestParameterMap);
+    PageRequest request = PageRequest.of(publicationSearchDTO.getPage(), 20);
+    PublicationSearchSpecifications pss = new PublicationSearchSpecifications(publicationSearchDTO);
+    Page<Publication> page = publicationRepository.findAll(pss, request);
+    
+    response.put("data", page.getContent());
+
+    return response;
   }
 
 

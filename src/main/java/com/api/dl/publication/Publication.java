@@ -104,4 +104,9 @@ public class Publication implements Serializable {
     this.content = content;
   }
 
+  @Override
+  public String toString() {
+    return this.name;
+  }
+
 }

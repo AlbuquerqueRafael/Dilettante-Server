@@ -4,9 +4,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+
+import com.api.dl.publication.Publication;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,9 +24,11 @@ public class SearchController {
   @Autowired
   private SearchValidator searchValidator;
 
+  @Autowired
+  private SearchService searchService;
 
   /**
-   * @param option - Search option : Publication or User
+   * @param option - Search option : Publication or User(Not implemented)
    * @param p - Page Number
    * @param timeFilter - The type of time filter
    * 0 - Publications from current month
@@ -35,11 +40,11 @@ public class SearchController {
    * @param type - Optional: Type of the publication
    */
   @RequestMapping(value = "/search", method = RequestMethod.GET)
-  public Map<String, String> search (HttpServletRequest httpServletRequest) {
+  public Map<String, List<Publication>> search (HttpServletRequest httpServletRequest) {
     Map<String, String[]> requestParameterMap = httpServletRequest.getParameterMap();
     searchValidator.validateSearch(requestParameterMap);
+    Map<String, List<Publication>> response = searchService.search(requestParameterMap);
 
-    Map<String, String> response = new HashMap<>();
 
 		return response;
   }
