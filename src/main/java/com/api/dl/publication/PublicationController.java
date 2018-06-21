@@ -42,8 +42,15 @@ public class PublicationController {
   }
 
   @RequestMapping(value = "/publication", method = RequestMethod.GET)
-  public Map<String, List<Publication>> getPublications() {
+  public Map<String, List<Publication>> getPublications () {
     Map<String, List<Publication>> response = publicationService.getPublications();
+
+		return response;
+  }
+
+  @RequestMapping(value = "/publication/{id}", method = RequestMethod.GET)
+  public Map<String, Publication> getPublication (@PathVariable("id") Long id) {
+    Map<String, Publication> response = publicationService.getPublication(id);
 
 		return response;
   }

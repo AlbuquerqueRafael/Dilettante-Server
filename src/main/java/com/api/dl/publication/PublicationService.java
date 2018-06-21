@@ -7,6 +7,8 @@ import java.util.Optional;
 
 import com.api.dl.publication.exceptions.PublicationNotFoundException;
 import com.api.dl.publication.exceptions.PublicationOwnerException;
+import com.api.dl.reply.ReplyService;
+import com.api.dl.thread.ThreadService;
 import com.api.dl.user.User;
 import com.api.dl.user.UserService;
 
@@ -67,6 +69,14 @@ public class PublicationService {
     
     response.put("data", publication);
 
+    return response;
+  }
+
+  public Map<String, Publication> getPublication(Long id) {
+    Map<String, Publication> response = new HashMap<String, Publication>();
+    Publication publication = getPublicationByID(id);
+    response.put("data", publication);
+    
     return response;
   }
 

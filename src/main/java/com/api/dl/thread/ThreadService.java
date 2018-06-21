@@ -1,6 +1,7 @@
 package com.api.dl.thread;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -49,6 +50,17 @@ public class ThreadService {
     }
 
     return optThread.get();
+  }
+
+  public Map<String, List<Thread>> getThreadsByPublication (Long publicationID) {
+    Publication publication = publicationService.getPublicationByID(publicationID);
+    List<Thread> threads = threadRepository.findByPublication(publication);
+
+    Map<String, List<Thread>> response = new HashMap<String, List<Thread>>();
+
+    response.put("data", threads);
+
+    return response;
   }
 
 }
