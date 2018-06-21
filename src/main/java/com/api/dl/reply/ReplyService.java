@@ -1,6 +1,7 @@
 package com.api.dl.reply;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.api.dl.thread.Thread;
@@ -35,6 +36,17 @@ public class ReplyService {
     replyRepository.save(pReply);
     
     response.put("data", pReply);
+
+    return response;
+  }
+
+  public Map<String, List<Reply>> getRepliesByThread (Long threadID) {
+    Thread thread = threadService.getThreadByID(threadID);
+    List<Reply> threads = replyRepository.findByThread(thread);
+
+    Map<String, List<Reply>> response = new HashMap<String, List<Reply>>();
+
+    response.put("data", threads);
 
     return response;
   }
