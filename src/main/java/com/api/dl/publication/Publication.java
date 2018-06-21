@@ -43,7 +43,7 @@ public class Publication implements Serializable {
   @OneToOne(cascade = CascadeType.ALL)
   private Content content;
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne(optional=false)
   private User user;
 
   @NotNull(message="Please, inform a valid location")
