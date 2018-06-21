@@ -33,6 +33,13 @@ public class PublicationController {
 		return response;
   }
 
+  @RequestMapping(value = "/publication/{id}/love", method = RequestMethod.POST)
+  public Map<String, String> edit (@PathVariable("id") Long id) {
+    Map<String, String> response = publicationService.lovePublication(id);
+
+		return response;
+  }
+
   @RequestMapping(value = "/publication", method = RequestMethod.POST)
   public Map<String, String> create (@RequestBody Publication publication) {
     publicationValidator.validateCreateAndEdit(publication);                              
