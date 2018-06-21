@@ -70,8 +70,13 @@ public class PublicationService {
     return response;
   }
 
+  public Publication getPublicationByID (Long id) {
+    Optional<Publication> optPublication = publicationRepository.findById(id);
 
+    if (!optPublication.isPresent()) {
+      throw new PublicationNotFoundException("Publication not found;");
+    }
 
-
-  
+    return optPublication.get();
+  }
 }
