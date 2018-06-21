@@ -2,9 +2,11 @@ package com.api.dl.thread;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import com.api.dl.publication.Publication;
 import com.api.dl.publication.PublicationService;
+import com.api.dl.thread.exceptions.ThreadNotFoundException;
 import com.api.dl.user.User;
 import com.api.dl.user.UserService;
 
@@ -37,6 +39,16 @@ public class ThreadService {
     response.put("data", pThread);
 
     return response;
+  }
+
+  public Thread getThreadByID (Long id) {
+    Optional<Thread> optThread = threadRepository.findById(id);
+
+    if (!optThread.isPresent()) {
+      throw new ThreadNotFoundException("Thread not found;");
+    }
+
+    return optThread.get();
   }
 
 }
