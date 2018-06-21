@@ -1,13 +1,12 @@
-package com.api.dl.thread;
+package com.api.dl.reply;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
-import com.api.dl.publication.Publication;
+import com.api.dl.thread.Thread;
 import com.api.dl.user.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -24,10 +23,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 @Entity
-@Table (name = "thread")
-public class Thread implements Serializable {
+@Table (name = "reply")
+public class Reply implements Serializable {
 
-  private static final long serialVersionUID = -1513339037567362L;
+  private static final long serialVersionUID = -1514037567362L;
 
   @Id
   @GeneratedValue(strategy=GenerationType.AUTO)
@@ -37,12 +36,8 @@ public class Thread implements Serializable {
   @NotBlank(message="Please, inform a comment")
   private String comment;
 
-  @Column(nullable = false)
-  @NotNull(message="Please, inform a thread type")
-  private ThreadType threadType;
-
   @ManyToOne(optional=false)
-  private Publication publication;
+  private Thread thread;
 
   @ManyToOne(optional=false)
   private User user;
@@ -57,14 +52,13 @@ public class Thread implements Serializable {
   @JsonProperty(access = Access.WRITE_ONLY)
   public LocalDateTime updatedAt;
 
-  protected Thread () {
+  protected Reply () {
 	}
 
-	public Thread (String comment, User user, Publication publication, ThreadType threadType) {
+	public Reply (String comment, User user, Thread thread) {
     this.comment = comment;
     this.user = user;
-    this.publication = publication;
-    this.threadType = threadType;
+    this.thread = thread;
   }
 
   public String getComment () {
@@ -75,8 +69,5 @@ public class Thread implements Serializable {
     return this.user.getUsername();
   }
 
-  public ThreadType getThreadType () {
-    return this.threadType;
-  }
 
 }

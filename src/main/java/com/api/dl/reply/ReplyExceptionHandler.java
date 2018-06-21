@@ -1,9 +1,8 @@
-package com.api.dl.thread;
+package com.api.dl.reply;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.api.dl.thread.exceptions.InvalidThreadException;
-import com.api.dl.thread.exceptions.ThreadNotFoundException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,16 +11,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 
 @ControllerAdvice
-public class ThreadExceptionHandler {
+public class ReplyExceptionHandler {
 	private Map<String, Object> model = new HashMap<String, Object>();
 		
 	@ExceptionHandler(InvalidThreadException.class)
 	public ResponseEntity<Map<String, Object>> handleCustomException (InvalidThreadException e) {
-		return mountBadRequestException(e.getMessage());
-	}
-
-	@ExceptionHandler(ThreadNotFoundException.class)
-	public ResponseEntity<Map<String, Object>> handleCustomException (ThreadNotFoundException e) {
 		return mountBadRequestException(e.getMessage());
 	}
 
