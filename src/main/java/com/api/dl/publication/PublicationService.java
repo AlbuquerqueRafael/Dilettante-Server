@@ -7,8 +7,8 @@ import java.util.Optional;
 
 import com.api.dl.publication.exceptions.PublicationNotFoundException;
 import com.api.dl.publication.exceptions.PublicationOwnerException;
-import com.api.dl.reply.ReplyService;
-import com.api.dl.thread.ThreadService;
+import com.api.dl.publication.love.Love;
+import com.api.dl.publication.love.LoveRepository;
 import com.api.dl.user.User;
 import com.api.dl.user.UserService;
 
@@ -23,6 +23,9 @@ public class PublicationService {
 
   @Autowired
   private PublicationRepository publicationRepository;
+
+  @Autowired
+  private LoveRepository loveRepository;
 
   @Autowired
   private UserService userService;
@@ -73,8 +76,9 @@ public class PublicationService {
   }
 
   public Map<String, Publication> getPublication(Long id) {
-    Map<String, Publication> response = new HashMap<String, Publication>();
     Publication publication = getPublicationByID(id);
+
+    Map<String, Publication> response = new HashMap<String, Publication>();
     response.put("data", publication);
     
     return response;
@@ -88,5 +92,18 @@ public class PublicationService {
     }
 
     return optPublication.get();
+  }
+
+  public Map<String, String> lovePublication(Long id) {
+    Publication publication = getPublicationByID(id);
+    User user = userService.getLoggedUser();
+    List<Love> loves = loveRepository.findByPublicationAndUser(publication, user);
+
+    if (loves.size() == 0) {
+      Love love = new Love(user, publication);
+      loveRepository.save(love);
+    } 
+
+    return response;
   }
 }
