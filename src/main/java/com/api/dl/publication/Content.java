@@ -35,7 +35,11 @@ public class Content implements Serializable {
   @NotNull(message="Please, inform a valid content type")
   private Type type;
 
+  @Column(nullable = true)
   private String link;
+
+  @Column(nullable = true)
+  private String blobName;
 
   @CreationTimestamp
   @Column(name = "created_at")
@@ -68,11 +72,23 @@ public class Content implements Serializable {
     return this.link;
   }
 
+  public String getBlobName () {
+    return this.blobName;
+  }
+
   public String getDescription () {
     return this.description;
   }
 
   public String getAuthor () {
     return this.author;
+  }
+
+  public void setLink (String link) {
+    this.link = link;
+  }
+
+  public void setBlobName (String blobName) {
+    this.blobName = blobName;
   }
 }

@@ -72,6 +72,12 @@
 			<artifactId>jjwt</artifactId>
 			<version>0.6.0</version>
 		</dependency>
+		<!-- Dependency for google cloud -->
+		<dependency>
+			<groupId>com.google.cloud</groupId>
+			<artifactId>google-cloud-storage</artifactId>
+			<version>1.37.0</version>
+		</dependency>
 		<!-- Dependency for validation -->
 		<dependency>
     	<groupId>javax.validation</groupId>

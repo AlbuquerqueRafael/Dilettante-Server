@@ -75,6 +75,20 @@ public class PublicationService {
     return response;
   }
 
+  public Map<String, Publication> persistContent (Publication publication) {
+    Map<String, Publication> response = new HashMap<String, Publication>();
+    User user = userService.getLoggedUser();
+    
+    if (!publication.getUser().equals(user)) {
+      throw new PublicationOwnerException("You are not the owner of this publication");
+    }
+
+    publicationRepository.save(publication);
+    response.put("data", publication);
+
+    return response;
+  }
+
   public Map<String, Publication> getPublication(Long id) {
     Publication publication = getPublicationByID(id);
 
@@ -105,5 +119,5 @@ public class PublicationService {
     } 
 
     return response;
-  }
+  } 
 }
