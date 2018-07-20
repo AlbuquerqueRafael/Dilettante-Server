@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
 @CrossOrigin
-@RequestMapping(value = "/api/thread")
+@RequestMapping(value = "/thread")
 public class ReplyController {
 
   @Autowired

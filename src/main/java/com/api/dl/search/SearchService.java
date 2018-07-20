@@ -41,7 +41,6 @@ public class SearchService {
     TimeFilter timeFilterEnum = TimeFilter.values()[tmeFilter];
     PublicationSearchDTO publicationSearchDTO = new PublicationSearchDTO(page,timeFilterEnum);
     publicationSearchDTO.setLocation(getLocation(requestParameterMap));
-    publicationSearchDTO.setLocation(getLocation(requestParameterMap));
     fillPublicationType(requestParameterMap, publicationSearchDTO);
 
     return publicationSearchDTO;

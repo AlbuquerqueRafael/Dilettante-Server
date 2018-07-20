@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
 @CrossOrigin
-@RequestMapping(value = "/api")
 public class SearchController {
 
   @Autowired

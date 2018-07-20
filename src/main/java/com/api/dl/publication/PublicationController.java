@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
 @CrossOrigin
-@RequestMapping(value = "/api")
 public class PublicationController {
 	
   @Autowired

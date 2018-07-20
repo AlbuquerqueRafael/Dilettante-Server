@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
 @CrossOrigin
-@RequestMapping(value = "/api/publication")
+@RequestMapping(value = "/publication")
 public class ThreadController {
 
   @Autowired
