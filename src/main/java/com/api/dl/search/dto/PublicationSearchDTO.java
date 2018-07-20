@@ -11,6 +11,7 @@ public class PublicationSearchDTO {
   Type type;
   Location location;
   TimeFilter timeFilter;
+  String name;
 
   public PublicationSearchDTO (int page, TimeFilter timeFilter) {
     this.page = page;
@@ -34,12 +35,20 @@ public class PublicationSearchDTO {
     return this.location;
   }
 
-  public void setType(Type type) {
+  public String getName () {
+    return this.name;
+  }
+
+  public void setType (Type type) {
     this.type = type;
   }
 
-  public void setLocation(Location location) {
+  public void setLocation (Location location) {
     this.location = location;
+  }
+
+  public void setName (String name) {
+    this.name = name;
   }
 
 }
