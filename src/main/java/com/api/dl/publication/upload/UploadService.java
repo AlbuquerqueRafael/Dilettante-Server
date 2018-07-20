@@ -34,7 +34,7 @@ public class UploadService {
       StorageOptions storageOptions = StorageOptions.newBuilder()
       .setProjectId("dilettante-9c038")
       .setCredentials(GoogleCredentials.fromStream(new 
-      FileInputStream("dilettante-1ada97cd0f41.json"))).build();
+      FileInputStream("dilettante-9a7757878845.json"))).build();
       storage = storageOptions.getService();
     } catch(Exception e) {
       throw new UploadException(e.getMessage());
@@ -74,7 +74,6 @@ public class UploadService {
     if (content.getLink() != null) {
       BlobId blobId = BlobId.of(bucketName, content.getBlobName());
       boolean deleted = storage.delete(blobId);
-      System.out.println(deleted);
     }
   }
 }

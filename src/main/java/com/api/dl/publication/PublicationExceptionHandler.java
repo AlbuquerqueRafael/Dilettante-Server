@@ -2,6 +2,7 @@ package com.api.dl.publication;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.api.dl.exceptions.UploadException;
 import com.api.dl.publication.exceptions.InvalidPublicationException;
 import com.api.dl.publication.exceptions.PublicationNotFoundException;
 import com.api.dl.publication.exceptions.PublicationOwnerException;
@@ -29,6 +30,11 @@ public class PublicationExceptionHandler {
 	@ExceptionHandler(PublicationOwnerException.class)
 	public ResponseEntity<Map<String, Object>> handleCustomException (PublicationOwnerException e) {
 		return mountNotAuthorizedRequestException(e.getMessage());
+	}
+
+	@ExceptionHandler(UploadException.class)
+	public ResponseEntity<Map<String, Object>> handleCustomException (UploadException e) {
+		return mountBadRequestException(e.getMessage());
 	}
 	
 	private ResponseEntity<Map<String, Object>> mountBadRequestException (String errorMessage){
