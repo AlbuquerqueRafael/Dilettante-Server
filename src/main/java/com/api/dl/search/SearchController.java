@@ -36,8 +36,9 @@ public class SearchController {
    * @param country - Optional: Country of the publication
    * @param city - Optional: City of the publication
    * @param type - Optional: Type of the publication
+   * @param name - Optional: Name of the publication
    */
-  @RequestMapping(value = "/search", method = RequestMethod.GET)
+  @RequestMapping(value = "/search/", method = RequestMethod.GET)
   public Map<String, List<Publication>> search (HttpServletRequest httpServletRequest) {
     Map<String, String[]> requestParameterMap = httpServletRequest.getParameterMap();
     searchValidator.validateSearch(requestParameterMap);

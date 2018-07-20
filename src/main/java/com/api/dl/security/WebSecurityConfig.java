@@ -36,7 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, "/publication/{\\d+}").permitAll()
 				.antMatchers(HttpMethod.GET, "/publication/{\\d+}/thread").permitAll()
 				.antMatchers(HttpMethod.GET, "/thread/{\\d+}/reply").permitAll()
-				.antMatchers(HttpMethod.GET, "/search").permitAll()
+				.antMatchers(HttpMethod.GET, "/search/**").permitAll()
 				// authenticate all remaining URLS
 				.anyRequest().fullyAuthenticated().and()
 				// adding JWT filter

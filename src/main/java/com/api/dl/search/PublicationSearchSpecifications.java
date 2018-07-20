@@ -50,13 +50,19 @@ public class PublicationSearchSpecifications implements Specification<Publicatio
       if (filter.getLocation().getState() != null) {
         String state = filter.getLocation().getState();
         predicates.add(cb.like(cb.lower(locationJoin.<String> get("state")), 
-                                                "%" + state + "%"));
+                                                "%" + state.toLowerCase() + "%"));
       }
 
       if (filter.getLocation().getCountry() != null) {
         String country = filter.getLocation().getCountry();
         predicates.add(cb.like(cb.lower(locationJoin.<String> get("country")), 
-                                                "%" + country + "%"));
+                                                "%" + country.toLowerCase() + "%"));
+      }
+
+      if (filter.getName() != null) {
+        String name = filter.getName();
+        predicates.add(cb.like(cb.lower(root.<String> get("name")), 
+                                                "%" + name.toLowerCase() + "%"));
       }
 
       if (filter.getTimeFilter().equals(TimeFilter.THIS_MONTH)) {

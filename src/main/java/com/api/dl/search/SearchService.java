@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Service
@@ -41,6 +42,7 @@ public class SearchService {
     TimeFilter timeFilterEnum = TimeFilter.values()[tmeFilter];
     PublicationSearchDTO publicationSearchDTO = new PublicationSearchDTO(page,timeFilterEnum);
     publicationSearchDTO.setLocation(getLocation(requestParameterMap));
+    fillPublicationName(requestParameterMap, publicationSearchDTO);
     fillPublicationType(requestParameterMap, publicationSearchDTO);
 
     return publicationSearchDTO;
@@ -70,6 +72,14 @@ public class SearchService {
       int typeInt = new Integer(requestParameterMap.get("type")[0]);
       Type type = Type.values()[typeInt];
       publicationSearchDTO.setType(type);
+    }
+  }
+
+  private void fillPublicationName(Map<String, String[]> requestParameterMap, 
+                                   PublicationSearchDTO publicationSearchDTO) {
+    if (requestParameterMap.get("name") != null && !requestParameterMap.get("name")[0].trim().equals("")){
+      String name = requestParameterMap.get("name")[0];
+      publicationSearchDTO.setName(name);
     }
   }
 
