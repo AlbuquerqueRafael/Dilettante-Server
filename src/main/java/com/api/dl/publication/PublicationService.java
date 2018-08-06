@@ -37,6 +37,8 @@ public class PublicationService {
     publication.setUser(user);
     publicationRepository.save(publication);
     
+    response.put("response", "Publication created");
+
     return response;
   }
 
@@ -56,7 +58,7 @@ public class PublicationService {
     Map<String, Publication> response = new HashMap<String, Publication>();
 
     if (!optPublication.isPresent()) {
-      throw new PublicationNotFoundException("Publication not found;");
+      throw new PublicationNotFoundException("Publication not found");
     }
 
     Publication auxPublication = optPublication.get();
@@ -102,7 +104,7 @@ public class PublicationService {
     Optional<Publication> optPublication = publicationRepository.findById(id);
 
     if (!optPublication.isPresent()) {
-      throw new PublicationNotFoundException("Publication not found;");
+      throw new PublicationNotFoundException("Publication not found");
     }
 
     return optPublication.get();
@@ -116,7 +118,12 @@ public class PublicationService {
     if (loves.size() == 0) {
       Love love = new Love(user, publication);
       loveRepository.save(love);
-    } 
+    } else {
+      response.put("response", "You already loved this publication");
+      return response;
+    }
+
+    response.put("response", "Publication loved");
 
     return response;
   } 
