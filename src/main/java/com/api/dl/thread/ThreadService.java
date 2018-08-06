@@ -46,7 +46,7 @@ public class ThreadService {
     Optional<Thread> optThread = threadRepository.findById(id);
 
     if (!optThread.isPresent()) {
-      throw new ThreadNotFoundException("Thread not found;");
+      throw new ThreadNotFoundException("Thread not found");
     }
 
     return optThread.get();

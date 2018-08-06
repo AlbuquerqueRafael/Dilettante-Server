@@ -67,6 +67,10 @@ public class Thread implements Serializable {
     this.threadType = threadType;
   }
 
+  public Long getId() {
+    return this.id;
+  }
+
   public String getComment () {
     return this.comment;
   }

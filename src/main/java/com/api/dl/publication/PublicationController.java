@@ -5,18 +5,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
-
-import com.api.dl.exceptions.UploadException;
 import com.api.dl.publication.upload.UploadService;
 
 import org.springframework.beans.factory.annotation.Autowired;

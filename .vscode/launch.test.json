@@ -1,0 +1,30 @@
+{
+    "run": {
+        "default": "",
+        "items": [
+            {
+                "name": "projsw",
+                "projectName": "projsw",
+                "workingDirectory": "c:\\Users\\Rafael Albuquerque\\Documents\\workspace\\dl\\Dilettante-Server",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            }
+        ]
+    },
+    "debug": {
+        "default": "",
+        "items": [
+            {
+                "name": "projsw",
+                "projectName": "projsw",
+                "workingDirectory": "c:\\Users\\Rafael Albuquerque\\Documents\\workspace\\dl\\Dilettante-Server",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            }
+        ]
+    }
+}

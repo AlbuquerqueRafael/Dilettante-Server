@@ -26,7 +26,7 @@ public class SearchController {
   private SearchService searchService;
 
   /**
-   * @param option - Search option : Publication or User(Not implemented)
+   * @param option - Search option : publication or User(Not implemented)
    * @param p - Page Number
    * @param timeFilter - The type of time filter
    * 0 - Publications from current month
@@ -36,6 +36,8 @@ public class SearchController {
    * @param country - Optional: Country of the publication
    * @param city - Optional: City of the publication
    * @param type - Optional: Type of the publication
+   * POETRY(0), PAINTING(1), SCULPTURE(2), STREET_ART(3), COMICS(4), GENERAL(5);
+   * 
    * @param name - Optional: Name of the publication
    */
   @RequestMapping(value = "/search/", method = RequestMethod.GET)
