@@ -57,9 +57,16 @@ public class UserService {
   }
 
   public Map<String, String> signup (User user) {
+    Optional<User> optUser = userRepository.findByUsername(user.getUsername());
+
+    if (optUser.isPresent()) {
+      throw new InvalidCredentialsException("Please, provide another username;");
+    }
+
     List<Role> roles = new ArrayList<Role>();
     roles.add(Role.ROLE_CLIENT);
 
+    
     user.setPassword(passwordEnconder.encode(user.getPassword()));
     user.setRoles(roles);
     user.setActive(true);
