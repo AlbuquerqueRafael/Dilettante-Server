@@ -30,8 +30,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// starts authorizing configurations
 				.authorizeRequests()
 				//Alowing some url's
-				.antMatchers("/login").permitAll()
-				.antMatchers("/signup").permitAll()
+				.antMatchers("/user/login").permitAll()
+				.antMatchers("/user/signup").permitAll()
 				.antMatchers(HttpMethod.GET, "/publication").permitAll()
 				.antMatchers(HttpMethod.GET, "/publication/{\\d+}").permitAll()
 				.antMatchers(HttpMethod.GET, "/publication/{\\d+}/thread").permitAll()
