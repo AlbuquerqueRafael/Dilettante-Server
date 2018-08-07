@@ -1,6 +1,9 @@
 package com.api.dl.search;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import io.swagger.annotations.ApiOperation;
+
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
@@ -40,6 +43,7 @@ public class SearchController {
    * 
    * @param name - Optional: Name of the publication
    */
+  @ApiOperation(value = "Faz a busca de publicações no sistema")
   @RequestMapping(value = "/search/", method = RequestMethod.GET)
   public Map<String, List<Publication>> search (HttpServletRequest httpServletRequest) {
     Map<String, String[]> requestParameterMap = httpServletRequest.getParameterMap();

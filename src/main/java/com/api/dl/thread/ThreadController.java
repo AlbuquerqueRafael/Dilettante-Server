@@ -1,6 +1,9 @@
 package com.api.dl.thread;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import io.swagger.annotations.ApiOperation;
+
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
@@ -24,6 +27,7 @@ public class ThreadController {
   @Autowired
   ThreadValidator threadValidator;
 
+  @ApiOperation(value = "Salva uma thread em uma publicação do sistema")
   @RequestMapping(value = "/{id}/thread", method = RequestMethod.POST)
   public Map<String, Thread> save (@PathVariable("id") Long publicationID, 
                                    @RequestBody Thread thread) {
@@ -35,7 +39,7 @@ public class ThreadController {
 		return response;
   }
 
-
+  @ApiOperation(value = "Retorna todas as threads de uma publicação")
   @RequestMapping(value = "{id}/thread", method = RequestMethod.GET)
   public Map<String, List<Thread>> getThreadsByPublication (@PathVariable("id") Long publicationID) {
     Map<String, List<Thread>> response = threadService.getThreadsByPublication(publicationID);

@@ -1,6 +1,9 @@
 package com.api.dl.reply;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import io.swagger.annotations.ApiOperation;
+
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
@@ -24,6 +27,7 @@ public class ReplyController {
   @Autowired
   ReplyValidator replyValidator;
 
+  @ApiOperation(value = "Salva um reply em uma thread de uma publicação do sistema")
   @RequestMapping(value = "/{id}/reply", method = RequestMethod.POST)
   public Map<String, Reply> save (@PathVariable("id") Long threadID, 
                                   @RequestBody Reply reply) {
@@ -34,6 +38,7 @@ public class ReplyController {
 		return response;
   }
 
+  @ApiOperation(value = "Retorna todas os replies de uma thread especifica do sistema")
   @RequestMapping(value = "{id}/reply", method = RequestMethod.GET)
   public Map<String, List<Reply>> getRepliesByThread (@PathVariable("id") Long threadID) {
     Map<String, List<Reply>> response = replyService.getRepliesByThread(threadID);

@@ -2,6 +2,9 @@ package com.api.dl.publication;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import io.swagger.annotations.ApiOperation;
+
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -32,6 +35,7 @@ public class PublicationController {
   @Autowired
   private UploadService uploadService;
 
+  @ApiOperation(value = "Edita uma publicação")
   @RequestMapping(value = "/publication/{id}", method = RequestMethod.PUT)
   public Map<String, Publication> edit (@PathVariable("id") Long id, @RequestBody Publication publication) {
     publicationValidator.validateCreateAndEdit(publication);
@@ -40,6 +44,7 @@ public class PublicationController {
 		return response;
   }
 
+  @ApiOperation(value = "Ama uma publicação")
   @RequestMapping(value = "/publication/{id}/love", method = RequestMethod.POST)
   public Map<String, String> edit (@PathVariable("id") Long id) {
     Map<String, String> response = publicationService.lovePublication(id);
@@ -47,6 +52,7 @@ public class PublicationController {
 		return response;
   }
 
+  @ApiOperation(value = "Cria uma publicação")
   @RequestMapping(value = "/publication", method = RequestMethod.POST)
   public Map<String, String> create (@RequestBody Publication publication) {
     publicationValidator.validateCreateAndEdit(publication);
@@ -62,6 +68,7 @@ public class PublicationController {
 		return response;
   }
 
+  @ApiOperation(value = "Retorna uma publicação especifica")
   @RequestMapping(value = "/publication/{id}", method = RequestMethod.GET)
   public Map<String, Publication> getPublication (@PathVariable("id") Long id) {
     Map<String, Publication> response = publicationService.getPublication(id);
@@ -70,6 +77,7 @@ public class PublicationController {
   }
 
 
+  @ApiOperation(value = "Faz o upload de um audio ou de uma imagem no sistema em uma publicação do sistema")
   @RequestMapping(value = "/publication/{id}/uploadContent", method = RequestMethod.POST)
   public Map<String, Publication> uploadContent (@RequestParam("file") MultipartFile file,
                                                @PathVariable("id") Long id) throws IOException {

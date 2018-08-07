@@ -1,6 +1,9 @@
 package com.api.dl.user;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import io.swagger.annotations.ApiOperation;
+
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.HashMap;
@@ -23,6 +26,7 @@ public class UserController {
   @Autowired 
   private UserValidator userValidator;
 
+  @ApiOperation(value = "Faz o login de um usuário")
   @RequestMapping(value = "/login", method = RequestMethod.POST)
   public Map<String, String> login (@RequestBody User user) {
     userValidator.validateLogin(user);                                  
@@ -38,6 +42,7 @@ public class UserController {
 		return response;
   }
 
+  @ApiOperation(value = "Faz o cadastro de um usuário")
   @RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public Map<String, String> signup (@RequestBody User user) {
     userValidator.validateSignUp(user);

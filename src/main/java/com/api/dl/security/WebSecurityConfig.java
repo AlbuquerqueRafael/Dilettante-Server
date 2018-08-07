@@ -32,6 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				//Alowing some url's
 				.antMatchers("/user/login").permitAll()
 				.antMatchers("/user/signup").permitAll()
+				.antMatchers("/v2/api-docs").permitAll()
 				.antMatchers(HttpMethod.GET, "/publication").permitAll()
 				.antMatchers(HttpMethod.GET, "/publication/{\\d+}").permitAll()
 				.antMatchers(HttpMethod.GET, "/publication/{\\d+}/thread").permitAll()
